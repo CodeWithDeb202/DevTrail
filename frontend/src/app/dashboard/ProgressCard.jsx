@@ -1,6 +1,5 @@
-export default function ProgressCard() {
+export default function ProgressCard({progress}) {
 
-    const progress = 65;
 
 
     return (

@@ -8,35 +8,35 @@ import api from "@/services/api";
 
 const AuthContext = createContext();
 
-const getProfile = async () => {
-
-    try {
-
-        const response = await api.get(
-            "/users/profile"
-        );
-
-
-        setUser(response.data.user);
-
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
-
-};
-
 
 export const AuthProvider = ({ children }) => {
 
-    
+
 
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const [loading, setLoading] = useState(false);
+    const getProfile = async () => {
+        try {
+            const response = await api.get("/users/profile");
+            setUser(response.data.user);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            getProfile();
+        } else {
+            setLoading(false);
+        }
+    }, []);
 
 
 
@@ -86,20 +86,6 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
 
     };
-
-    useEffect(() => {
-
-        const token = localStorage.getItem("token");
-
-
-        if (token) {
-
-            getProfile();
-            setLoading(false);
-
-        }
-
-    }, []);
 
 
 

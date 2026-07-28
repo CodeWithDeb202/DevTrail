@@ -8,7 +8,10 @@ const protect = require("../middleware/authMiddleware");
 const {
     createProject,
     getProjects,
-    getSingleProject
+    getSingleProject,
+    updateProject,
+    toggleLike,
+    deleteProject,
 
 } = require("../controllers/projectController");
 
@@ -32,6 +35,18 @@ router.get(
 protect,
 getSingleProject
 );
+
+
+router.put("/:id", protect, updateProject);
+
+
+router.post(
+    "/:id/like",
+    protect,
+    toggleLike
+);
+
+router.delete("/:id", protect, deleteProject);
 
 
 

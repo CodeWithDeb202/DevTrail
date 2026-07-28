@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "@/services/projectService";
 import ProjectCard from "@/components/projects/ProjectCard";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 
 export default function Projects() {
@@ -37,6 +39,13 @@ min-h-screen
 bg-[#030712]
 p-6
 ">
+    <Link
+                    href="/dashboard"
+                    className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition mb-2"
+                >
+                    <ArrowLeft size={22} />
+                    <span>Back to Dashboard</span>
+                </Link>
 
 
             <div className="

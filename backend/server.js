@@ -11,8 +11,9 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const logRoutes = require("./routes/logRoutes");
-const profileRoutes =
-require("./routes/profileRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
 
 
 
@@ -29,13 +30,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/projects", projectRoutes);
 app.use(
-"/api/logs",
-logRoutes
+    "/api/logs",
+    logRoutes
 );
 app.use(
-"/api/profile",
-profileRoutes
+    "/api/profile",
+    profileRoutes
 );
+app.use("/api/dashboard", dashboardRoutes);
 
 
 // Test Route
@@ -47,7 +49,7 @@ app.get("/", (req, res) => {
 
 
 // Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 connectDB();
 app.listen(PORT, () => {

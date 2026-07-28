@@ -156,7 +156,7 @@ p-6
 w-full
 py-3
 rounded-xl
-bg-gradient-to-r
+bg-linear-to-r
 from-blue-600
 to-purple-600
 text-white

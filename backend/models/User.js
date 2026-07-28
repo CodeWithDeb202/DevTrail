@@ -6,73 +6,114 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true,
+      trim: true
     },
+
 
     username: {
       type: String,
       required: true,
-      unique: true,
-      trim: true,
+      unique: true
     },
+
 
     email: {
       type: String,
       required: true,
-      unique: true,
-      lowercase: true,
+      unique: true
     },
+
 
     password: {
       type: String,
-      required: true,
-      minlength: 6,
+      required: true
     },
+
+
     profileImage: {
       type: String,
       default: ""
     },
+
+
+    bio: {
+      type: String,
+      default: ""
+    },
+
+
+    skills: [
+      {
+        type: String
+      }
+    ],
+
+
 
     github: {
       type: String,
       default: ""
     },
 
+
     linkedin: {
       type: String,
       default: ""
     },
+
+
+    instagram: {
+      type: String,
+      default: ""
+    },
+
 
     website: {
       type: String,
       default: ""
     },
 
+
+
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
+
+
+
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
+
+
+
     publicProfile: {
       type: Boolean,
       default: true
-    },
+    }
 
-    avatar: {
-      type: String,
-      default: "",
-    },
-
-    bio: {
-      type: String,
-      default: "",
-    },
-
-    skills: [
-      {
-        type: String,
-      },
-    ],
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
+
+
+userSchema.virtual("isProfileCompleted").get(function () {
+
+  return (
+    this.name &&
+    this.bio &&
+    this.skills.length > 0
+  );
+
+});
 
 
 module.exports = mongoose.model("User", userSchema);

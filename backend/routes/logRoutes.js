@@ -1,33 +1,23 @@
 const express = require("express");
-
 const router = express.Router();
 
 const protect = require("../middleware/authMiddleware");
-const upload = require("../middleware/uploadMiddleware");
+
+const {getLogs, createLog, getLogStats, searchLogs, deleteLog, updateLog, getSingleLog} = require("../controllers/logController");
+
+router.post("/", protect, createLog);
+
+router.get("/stats", protect, getLogStats);
+
+router.get("/search", protect, searchLogs);
+
+router.get("/project/:projectId", protect, getLogs);
+
+router.get("/:id", protect, getSingleLog);
 
 
-const {
-    createLog,
-    getLogs
-} = require("../controllers/logController");
+router.put("/:id", protect,  updateLog);
 
-
-
-router.post(
-    "/",
-    protect,
-    upload.single("image"),
-    createLog
-);
-
-
-
-router.get(
-    "/:projectId",
-    protect,
-    getLogs
-);
-
-
+router.delete("/:id", protect, deleteLog);
 
 module.exports = router;

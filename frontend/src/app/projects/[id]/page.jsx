@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getProjectById } from "@/services/projectService";
+import Link from "next/link";
+import { FileText, ArrowLeft } from "lucide-react";
 
 
 export default function ProjectDetails() {
@@ -62,6 +64,25 @@ bg-[#030712]
 text-white
 p-6
 ">
+            <Link
+                href="/projects"
+                className="
+    inline-flex
+    items-center
+    gap-2
+    text-gray-400
+    hover:text-white
+    transition
+    mb-6
+    "
+            >
+                <ArrowLeft size={22} />
+
+                <span>
+                    Back to Projects
+                </span>
+
+            </Link>
 
 
             <h1 className="
@@ -130,6 +151,32 @@ rounded-full
 
 
                 </div>
+
+                <Link
+
+                    href={`/projects/${id}/logs`}
+
+                    className="
+    mt-6
+    inline-flex
+    items-center
+    gap-2
+    bg-blue-600
+    px-5
+    py-3
+    rounded-xl
+    text-white
+    hover:bg-blue-700
+    transition
+    "
+
+                >
+
+                    <FileText size={20} />
+
+                    Daily Logs
+
+                </Link>
 
 
             </div>

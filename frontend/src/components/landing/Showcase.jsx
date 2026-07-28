@@ -2,10 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import {
-    Github,
-    ExternalLink
-} from "lucide-react";
+import {Gift, ExternalLink} from "lucide-react";
 
 
 const projects = [
@@ -150,7 +147,7 @@ overflow-hidden
 
                                 <div className="
 h-40
-bg-gradient-to-r
+bg-linear-to-r
 from-blue-600
 to-purple-600
 flex
@@ -260,63 +257,26 @@ text-gray-400
 h-2
 bg-gray-700
 rounded-full
-mt-2
-">
-
-
+mt-2">
                                             <div
-
-                                                className="
-h-full
-bg-blue-500
-rounded-full
-"
-
+                                                className="h-full bg-blue-500 rounded-full "
                                                 style={{
                                                     width: project.progress
                                                 }}
-
                                             />
-
-
                                         </div>
-
-
                                     </div>
-
-
-
-                                    <div className="
-flex
-gap-4
-mt-5
-text-gray-400
-">
-
-                                        <Github size={18} />
-
+                                    <div className="flex gap-4 mt-5 text-gray-400">
+                                        <Gift size={18} />
                                         <ExternalLink size={18} />
-
                                     </div>
-
-
-
                                 </div>
-
-
                             </motion.div>
 
-
                         ))
-
                     }
-
-
                 </div>
-
-
             </div>
-
 
         </section>
 

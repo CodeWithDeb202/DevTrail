@@ -34,3 +34,40 @@ export const getProjectById = async (id) => {
     return response.data;
 
 };
+
+
+// Update Project
+export const updateProject = async (id, data) => {
+
+    const response = await api.put(
+        `/projects/${id}`,
+        data
+    );
+
+    return response.data;
+
+};
+
+
+
+// Delete Project
+export const deleteProject = async (id) => {
+
+    const response = await api.delete(
+        `/projects/${id}`
+    );
+
+    return response.data;
+
+};
+
+
+export const toggleLike = async (id) => {
+
+    const response = await api.post(
+        `/projects/${id}/like`
+    );
+
+    return response.data;
+
+};
