@@ -50,11 +50,7 @@ export default function Sidebar() {
                         <Link
                             key={item.name}
                             href={item.link}
-                            className={`flex items-center gap-3 p-3 rounded-xl transition ${
-                                active
-                                    ? "bg-blue-600 text-white"
-                                    : "text-gray-400 hover:bg-white/5 hover:text-white"
-                            }`}
+                            className={`flex items-center gap-3 p-3 rounded-xl transition ${active ? "bg-blue-600 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white"}`}
                         >
                             <Icon size={20} />
                             {item.name}

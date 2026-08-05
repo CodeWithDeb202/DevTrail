@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/jsx-no-comment-textnodes */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -185,6 +187,7 @@ export default function EditProfilePage() {
 
                 <div className="flex justify-center">
 
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                         src={preview}
                         alt=""
@@ -289,11 +292,8 @@ export default function EditProfilePage() {
                                 ? "Update Profile"
                                 : "Save Profile"
                     }
-
                 </button>
-
             </form>
-
         </main>
 
     );

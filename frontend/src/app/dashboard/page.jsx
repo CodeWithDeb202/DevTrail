@@ -34,11 +34,12 @@ export default function Dashboard() {
 
     useEffect(() => {
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         getDashboardStats();
 
     }, []);
 
-const { user, loading } = useAuth();
+    const { user, loading } = useAuth();
     if (loading) {
         return <LoadingScreen />;
     }
@@ -47,53 +48,40 @@ const { user, loading } = useAuth();
     return (
 
         <div>
-
-
-            <h1 className="
-text-3xl
-font-bold
-mb-6
-">
-
+            <h1 className="text-3xl font-bold mb-6">
                 Welcome back,
                 {" "}
                 {user?.name || "Developer"} 👋
-
             </h1>
 
 
-            <div className="
-grid
-md:grid-cols-4
-gap-5
-mb-8
-">
+            <div className="grid md:grid-cols-4 gap-5 mb-8">
 
 
                 <StatsCard
                     title="Projects"
-                    value = {stats.totalProjects}
+                    value={stats.totalProjects}
                     icon={<Folder />}
                 />
 
 
                 <StatsCard
                     title="Logs"
-                    value = {stats.totalLogs}
+                    value={stats.totalLogs}
                     icon={<FileText />}
                 />
 
 
                 <StatsCard
                     title="Streak"
-                    value = {stats.streak}
+                    value={stats.streak}
                     icon={<Flame />}
                 />
 
 
                 <StatsCard
                     title="Completed"
-                    value = {stats.completedLogs}
+                    value={stats.completedLogs}
                     icon={<CheckCircle />}
                 />
 

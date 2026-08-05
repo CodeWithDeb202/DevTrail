@@ -42,12 +42,8 @@ export default function Projects() {
 
     return (
 
-        <div className="
-min-h-screen
-bg-[#030712]
-p-6
-">
-    <Link
+        <div className="min-h-screen bg-[#030712] p-6">
+                <Link
                     href="/dashboard"
                     className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition mb-2"
                 >
@@ -56,69 +52,29 @@ p-6
                 </Link>
 
 
-            <div className="
-flex
-justify-between
-mb-8
-">
-
-
-                <h1 className="
-text-3xl
-font-bold
-text-white
-">
-
+            <div className="flex justify-between mb-8">
+                <h1 className="text-3xl font-bold text-white">
                     My Projects
-
                 </h1>
 
-
                 <a
-
                     href="/create-project"
-
-                    className="
-bg-blue-600
-px-5
-py-3
-rounded-xl
-text-white
-"
-
+                    className="bg-blue-600 px-5 py-3 rounded-xl text-white"
                 >
-
                     + New Project
-
                 </a>
-
-
             </div>
 
-
-
-            <div className="
-grid
-md:grid-cols-3
-gap-6
-">
-
-
+            <div className="grid md:grid-cols-3 gap-6">
                 {
                     projects.map((project) => (
-
                         <ProjectCard
-
                             key={project._id}
-
                             project={project}
-
                         />
 
                     ))
                 }
-
-
             </div>
 
 

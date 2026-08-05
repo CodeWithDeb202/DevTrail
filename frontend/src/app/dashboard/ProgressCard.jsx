@@ -21,7 +21,7 @@ export default function ProgressCard({ progress }) {
 
             <div className="mt-5 h-3 bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                    className="h-full bg-linear-to-r from-blue-500 to-purple-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.8, ease: "easeOut" }}

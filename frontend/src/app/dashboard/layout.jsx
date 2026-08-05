@@ -36,11 +36,7 @@ export default function DashboardLayout({ children }) {
                             <Link
                                 key={item.name}
                                 href={item.link}
-                                className={`flex flex-col items-center gap-1 text-xs ${
-                                    active
-                                        ? "text-blue-500"
-                                        : "text-gray-400"
-                                }`}
+                                className={`flex flex-col items-center gap-1 text-xs ${active ? "text-blue-500" : "text-gray-400"}`}
                             >
                                 <Icon size={20} />
                                 {item.name}

@@ -16,153 +16,90 @@ import { getMyProfile } from "@/services/profileService";
 import { deleteProject } from "@/services/projectService";
 
 export default function ProfilePage() {
-
     const [user, setUser] = useState(null);
-
     const [projects, setProjects] = useState([]);
-
     const [projectsCount, setProjectsCount] = useState(0);
-
     const [loading, setLoading] = useState(true);
-
-const isOwner = true;
-
+    const isOwner = true;
+    
     const fetchProfile = async () => {
-
         try {
-
             const data = await getMyProfile();
-
             setUser(data.user);
-
             setProjects(data.projects);
-
             setProjectsCount(data.projectsCount);
-
         } catch (error) {
-
             console.log(error);
-
         } finally {
-
             setLoading(false);
-
         }
-
     };
 
     useEffect(() => {
-
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchProfile();
-
     }, []);
 
     const handleDelete = async (id) => {
-
         const ok = confirm(
             "Delete this project?"
         );
-
         if (!ok) return;
-
         try {
-
             await deleteProject(id);
-
             fetchProfile();
-
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
-if (loading) {
-
+    if (loading) {
         return <LoadingScreen />;
-
     }
 
     return (
-
         <main className="min-h-screen bg-[#030712] text-white p-6">
-
             <div className="max-w-7xl mx-auto space-y-6">
-
                 <Link
-
                     href="/dashboard"
-
                     className="inline-flex items-center gap-2 text-gray-400 hover:text-white"
-
                 >
-
                     <ArrowLeft size={20} />
-
                     Back to Dashboard
-
                 </Link>
 
                 <ProfileHeader
-
                     user={user}
-
                     projectsCount={projectsCount}
-
                     isOwner={isOwner}
-
                 />
 
                 <div className="grid lg:grid-cols-3 gap-6">
-
                     <div className="space-y-6">
-
                         <AboutCard
-
                             user={user}
-
                         />
-
                         <SkillsCard
-
                             user={user}
-
                         />
-
                         <SocialLinks
-
                             user={user}
-
                         />
-
                     </div>
 
                     <div className="lg:col-span-2 space-y-6">
-
                         <StatsCard
-
                             projects={projects}
-
                         />
 
                         <RecentProjects
-
                             projects={projects}
-
                             isOwner={isOwner}
-
                             onDelete={handleDelete}
-
                         />
-
                     </div>
-
                 </div>
-
             </div>
-
         </main>
 
     );

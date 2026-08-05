@@ -30,7 +30,7 @@ export default function Navbar() {
                             className="w-10 h-10 rounded-full object-cover border-2 border-blue-500"
                         />
                     ) : (
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center font-bold">
+                        <div className="w-10 h-10 rounded-full bg-linear-to-r from-blue-500 to-purple-500 flex items-center justify-center font-bold">
                             {user?.name?.[0]?.toUpperCase() || "D"}
                         </div>
                     )}
