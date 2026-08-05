@@ -115,35 +115,43 @@ exports.signup = async (req,res)=>{
         const {name, username, email, password} = req.body;
 
 
-        const existingUser = await User.findOne({
+        const existingEmail = await User.findOne({
             email
         });
 
+        const existingUsername = await User.findOne({
+            username
+        });
 
-        if(existingUser){
+        if (existingEmail) {
             return res.status(400).json({
-                message:"User already exists"
+                message: "Email is already in use"
             });
         }
 
+        if (existingUsername) {
+            return res.status(400).json({
+                message: "Username is already taken"
+            });
+        }
 
         const hashedPassword = await bcrypt.hash(
             password,
             10
         );
 
-
         const user = await User.create({
             name,
             username,
             email,
-            password:hashedPassword
+            password: hashedPassword
         });
 
+        const { password: _, ...sanitizedUser } = user.toObject();
 
         res.status(201).json({
-            message:"Account created successfully",
-            user
+            message: "Account created successfully",
+            user: sanitizedUser
         });
 
 
@@ -195,19 +203,20 @@ exports.login = async(req,res)=>{
 
         const token = jwt.sign(
             {
-                id:user._id
+                id: user._id
             },
             process.env.JWT_SECRET,
             {
-                expiresIn:"7d"
+                expiresIn: "7d"
             }
         );
 
+        const { password: _, ...sanitizedUser } = user.toObject();
 
         res.json({
-            message:"Login successful",
+            message: "Login successful",
             token,
-            user
+            user: sanitizedUser
         });
 
 
