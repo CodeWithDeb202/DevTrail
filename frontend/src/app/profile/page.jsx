@@ -10,6 +10,7 @@ import SkillsCard from "@/components/profile/SkillsCard";
 import SocialLinks from "@/components/profile/SocialLinks";
 import RecentProjects from "@/components/profile/RecentProjects";
 import StatsCard from "@/components/profile/StatsCard";
+import LoadingScreen from "@/components/LoadingScreen";
 
 import { getMyProfile } from "@/services/profileService";
 import { deleteProject } from "@/services/projectService";
@@ -24,13 +25,7 @@ export default function ProfilePage() {
 
     const [loading, setLoading] = useState(true);
 
-    const isOwner = true;
-
-    useEffect(() => {
-
-        fetchProfile();
-
-    }, []);
+const isOwner = true;
 
     const fetchProfile = async () => {
 
@@ -56,6 +51,12 @@ export default function ProfilePage() {
 
     };
 
+    useEffect(() => {
+
+        fetchProfile();
+
+    }, []);
+
     const handleDelete = async (id) => {
 
         const ok = confirm(
@@ -78,17 +79,9 @@ export default function ProfilePage() {
 
     };
 
-    if (loading) {
+if (loading) {
 
-        return (
-
-            <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center">
-
-                Loading...
-
-            </div>
-
-        );
+        return <LoadingScreen />;
 
     }
 

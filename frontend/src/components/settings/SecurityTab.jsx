@@ -1,53 +1,116 @@
-export default function SecurityTab(){
+"use client";
 
-return(
+import { useState } from "react";
+import api from "@/services/api";
+import { toast } from "react-hot-toast";
+import { KeyRound, Loader2 } from "lucide-react";
 
-<div className="bg-[#111827] rounded-2xl border border-white/10 p-6">
+export default function SecurityTab() {
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+    });
 
-<h2 className="text-2xl font-bold mb-6">
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-Change Password
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-</h2>
+        if (form.newPassword !== form.confirmPassword) {
+            toast.error("Passwords do not match");
+            return;
+        }
 
-<input
+        if (form.newPassword.length < 6) {
+            toast.error("Password must be at least 6 characters");
+            return;
+        }
 
-type="password"
+        setLoading(true);
 
-placeholder="Current Password"
+        try {
+            await api.put("/auth/password", {
+                currentPassword: form.currentPassword,
+                newPassword: form.newPassword,
+            });
 
-className="auth-input mb-4"
+            toast.success("Password changed successfully!");
+            setForm({
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: "",
+            });
+        } catch (error) {
+            toast.error(
+                error.response?.data?.message ||
+                    "Failed to change password"
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
-/>
+    return (
+        <form
+            onSubmit={handleSubmit}
+            className="bg-[#111827] rounded-2xl border border-white/10 p-6"
+        >
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <KeyRound size={22} className="text-blue-400" />
+                Change Password
+            </h2>
 
-<input
+            <input
+                type="password"
+                name="currentPassword"
+                value={form.currentPassword}
+                onChange={handleChange}
+                placeholder="Current Password"
+                className="auth-input mb-4"
+                required
+            />
 
-type="password"
+            <input
+                type="password"
+                name="newPassword"
+                value={form.newPassword}
+                onChange={handleChange}
+                placeholder="New Password"
+                className="auth-input mb-4"
+                required
+            />
 
-placeholder="New Password"
+            <input
+                type="password"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                className="auth-input"
+                required
+            />
 
-className="auth-input mb-4"
-
-/>
-
-<input
-
-type="password"
-
-placeholder="Confirm Password"
-
-className="auth-input"
-
-/>
-
-<button className="bg-blue-600 px-6 py-3 rounded-xl mt-6">
-
-Update Password
-
-</button>
-
-</div>
-
-)
-
+            <button
+                type="submit"
+                disabled={loading}
+                className="bg-blue-600 hover:bg-blue-500 px-6 py-3 rounded-xl mt-6 inline-flex items-center gap-2 transition disabled:opacity-50"
+            >
+                {loading ? (
+                    <>
+                        <Loader2 size={18} className="animate-spin" />
+                        Updating...
+                    </>
+                ) : (
+                    "Update Password"
+                )}
+            </button>
+        </form>
+    );
 }

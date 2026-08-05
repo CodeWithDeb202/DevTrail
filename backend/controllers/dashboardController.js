@@ -3,7 +3,6 @@ const DailyLog = require("../models/DailyLog");
 
 exports.getDashboardStats = async (req, res) => {
     try {
-
         const userId = req.user.id;
 
         const totalProjects = await Project.countDocuments({
@@ -16,7 +15,7 @@ exports.getDashboardStats = async (req, res) => {
 
         const completedLogs = await DailyLog.countDocuments({
             user: userId,
-            completed: true
+            status: "Completed"
         });
 
         const logs = await DailyLog.find({
@@ -28,10 +27,10 @@ exports.getDashboardStats = async (req, res) => {
         if (logs.length > 0) {
             const uniqueDates = [
                 ...new Set(
-                    logs.map(log =>
+                    logs.map((log) =>
                         log.createdAt.toISOString().split("T")[0]
                     )
-                )
+                ),
             ];
 
             let currentDate = new Date();
@@ -58,12 +57,11 @@ exports.getDashboardStats = async (req, res) => {
             totalLogs,
             streak,
             completedLogs,
-            progress
+            progress,
         });
-
     } catch (err) {
         res.status(500).json({
-            message: err.message
+            message: err.message,
         });
     }
 };

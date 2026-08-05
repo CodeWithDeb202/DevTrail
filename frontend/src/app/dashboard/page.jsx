@@ -7,6 +7,7 @@ import api from '@/services/api';
 import StatsCard from "@/app/dashboard/StatsCard";
 import ProgressCard from "@/app/dashboard/ProgressCard";
 import QuickActions from "@/app/dashboard/QuickActions";
+import LoadingScreen from "@/components/LoadingScreen";
 
 import { Folder, FileText, Flame, CheckCircle } from "lucide-react";
 
@@ -37,11 +38,9 @@ export default function Dashboard() {
 
     }, []);
 
-    const { user, loading } = useAuth();
+const { user, loading } = useAuth();
     if (loading) {
-
-        return <p>Loading...</p>
-
+        return <LoadingScreen />;
     }
 
 
