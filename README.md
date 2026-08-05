@@ -2,7 +2,7 @@
 
 **Track Every Commit. Share Every Milestone.**
 
-**Live Demo:** [https://dev-trail-alpha.vercel.app/](https://your-live-url.com)
+**Live Demo:** [https://dev-trail-alpha.vercel.app/]
 
 DevTrail is a full-stack developer platform where developers can organize projects, track milestones, maintain daily development logs, and showcase their complete building journey to the world.
 
