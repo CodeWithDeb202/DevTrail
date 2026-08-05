@@ -47,10 +47,19 @@ exports.getDashboardStats = async (req, res) => {
             }
         }
 
-        const progress =
-            totalLogs === 0
-                ? 0
-                : Math.round((completedLogs / totalLogs) * 100);
+// Overall progress = average project completion across all projects
+        const userProjects = await Project.find({
+            owner: userId
+        });
+
+        let progress = 0;
+        if (userProjects.length > 0) {
+            const totalProgress = userProjects.reduce(
+                (sum, p) => sum + (p.progress || 0),
+                0
+            );
+            progress = Math.round(totalProgress / userProjects.length);
+        }
 
         res.json({
             totalProjects,

@@ -1,5 +1,6 @@
 const Project = require("../models/Project");
 const DailyLog = require("../models/DailyLog");
+const { recalculateProjectProgress } = require("../utils/progress");
 
 
 // Create Project
@@ -59,8 +60,16 @@ exports.getProjects = async (req, res) => {
 
         });
 
+        // Recalculate each project's progress from its logs
+        for (const project of projects) {
+            await recalculateProjectProgress(project._id);
+        }
 
-        res.json(projects);
+        const updatedProjects = await Project.find({
+            owner: req.user._id
+        });
+
+        res.json(updatedProjects);
 
 
     }
@@ -86,7 +95,7 @@ exports.getSingleProject = async (req, res) => {
             req.params.id
         );
 
-        if (!project) {
+if (!project) {
 
             return res.status(404).json({
                 message: "Project not found"
@@ -94,11 +103,16 @@ exports.getSingleProject = async (req, res) => {
 
         }
 
+        // Recalculate project progress from its logs
+        await recalculateProjectProgress(project._id);
+
         project.views += 1;
 
         await project.save();
 
-        res.json(project);
+        const updatedProject = await Project.findById(project._id);
+
+        res.json(updatedProject);
 
     }
     catch (error) {
