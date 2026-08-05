@@ -83,4 +83,5 @@ projectSchema.pre(
     }
 );
 
+// Export the Project model
 module.exports = mongoose.model("Project", projectSchema);

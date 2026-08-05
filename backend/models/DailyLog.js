@@ -82,4 +82,5 @@ const dailyLogSchema = new mongoose.Schema(
 
 dailyLogSchema.index({ user: 1, project: 1, createdAt: -1 });
 
+// Export DailyLog model
 module.exports = mongoose.model("DailyLog", dailyLogSchema);
