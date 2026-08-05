@@ -3,14 +3,16 @@
 import { useEffect, useState } from "react";
 import { getProjects } from "@/services/projectService";
 import ProjectCard from "@/components/projects/ProjectCard";
+import LoadingScreen from "@/components/LoadingScreen";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, FolderPlus } from "lucide-react";
 
 
 export default function Projects() {
 
 
     const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
 
@@ -22,6 +24,8 @@ export default function Projects() {
 
             setProjects(data);
 
+            setLoading(false);
+
         };
 
 
@@ -29,6 +33,10 @@ export default function Projects() {
 
 
     }, []);
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
 
 
