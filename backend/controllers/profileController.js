@@ -92,7 +92,7 @@ exports.getMyProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        const {
+const {
             name,
             bio,
             skills,
@@ -101,6 +101,12 @@ exports.updateProfile = async (req, res) => {
             instagram,
             website,
             publicProfile,
+            publicProjects,
+            publicTimeline,
+            theme,
+            emailNotifications,
+            weeklyReport,
+            buildReminder,
         } = req.body;
 
         const user = await User.findById(req.user.id);
@@ -111,13 +117,19 @@ exports.updateProfile = async (req, res) => {
             });
         }
 
-        user.name = name;
-        user.bio = bio;
-        user.github = github;
-        user.linkedin = linkedin;
-        user.instagram = instagram;
-        user.website = website;
-        user.publicProfile = publicProfile;
+        if (name !== undefined) user.name = name;
+        if (bio !== undefined) user.bio = bio;
+        if (github !== undefined) user.github = github;
+        if (linkedin !== undefined) user.linkedin = linkedin;
+        if (instagram !== undefined) user.instagram = instagram;
+        if (website !== undefined) user.website = website;
+        if (publicProfile !== undefined) user.publicProfile = publicProfile;
+        if (publicProjects !== undefined) user.publicProjects = publicProjects;
+        if (publicTimeline !== undefined) user.publicTimeline = publicTimeline;
+        if (theme !== undefined) user.theme = theme;
+        if (emailNotifications !== undefined) user.emailNotifications = emailNotifications;
+        if (weeklyReport !== undefined) user.weeklyReport = weeklyReport;
+        if (buildReminder !== undefined) user.buildReminder = buildReminder;
 
         if (skills) {
             user.skills =

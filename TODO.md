@@ -1,34 +1,32 @@
-# DevTrail - Deployment & Polish TODO
+# DevTrail Settings & README Enhancement - TODO
 
 ## Backend
-- [x] Fix dashboardController streak/completedLogs bug (use status === "Completed")
-- [x] Create backend `.env.example`
-- [x] Improve CORS config for deployment
+- [x] 1. Update `User.js` model - add theme, notification & privacy fields
+- [x] 2. Update `profileController.js` - persist new fields in updateProfile
+- [x] 3. Add `deleteAccount` endpoint in `authController.js`
+- [x] 4. Add route in `authRoutes.js` for delete account
+- [x] 5. Register route (authRoutes already mounted at /api/auth)
 
-## Frontend - Loading & Polish
-- [x] Create animated `LoadingScreen` component (framer-motion)
-- [x] Replace all "Loading..." text with LoadingScreen
-- [x] Create global `loading.jsx` with rich animation
-- [x] Improve `error.jsx` and `not-found.jsx`
+## Frontend
+- [x] 6. Make `AppearanceTab.jsx` functional (theme switcher)
+- [x] 7. Make `NotificationTab.jsx` functional (persist preferences)
+- [x] 8. Complete `PrivacyTab.jsx` (enable all toggles)
+- [x] 9. Make `DeleteAccountTab.jsx` functional (delete account)
+- [x] 9b. Add `settingsService.js` for settings API calls
+- [x] 9c. Add icons to Settings `Sidebar.jsx`
 
-## Frontend - Auth & Navigation
-- [x] Sidebar: wire logout button to useAuth().logout
-- [x] Navbar: show real user name/avatar from useAuth
-- [x] Add framer-motion animations to sidebar/navbar
-- [x] Add mobile bottom navigation
+## Documentation
+- [x] 10. Rewrite `README.md` comprehensively
 
-## Frontend - Settings
-- [x] Connect Account tab to backend profile API
-- [x] Wire Security (change password) - add backend endpoint
-- [x] Wire Privacy tab to publicProfile toggle
+## Verification
+- [x] 11. Run frontend build to verify (all 11 routes generated ✓)
+- [x] 12. Backend syntax check passed (all controllers, models, routes OK ✓)
+- [x] 13. Deployment readiness check complete ✅
+- [ ] 14. Commit & push changes
 
-## Frontend - UI Enhancements
-- [x] Add icons & animations to dashboard cards
-- [x] Improve ProjectCard, LogCard with animations
-- [x] Styling polish across pages
-- [x] Polish public profile page (/u/[username])
-
-## Deployment
-- [x] Create frontend `.env.example`
-- [x] Add public frontend profile page polish
-- [x] Final build verification (fixed not-found.jsx "use client" directive)
+## Theme System Fix
+- [x] 15. Create `ThemeContext.jsx` - global theme state with localStorage persistence
+- [x] 16. Wrap app with `ThemeProvider` in `layout.jsx`
+- [x] 17. Add light theme CSS overrides in `globals.css`
+- [x] 18. Update `AppearanceTab.jsx` to use `useTheme` context (instant global switching)
+- [x] 19. Rebuild frontend - all 11 routes compiled successfully ✓
