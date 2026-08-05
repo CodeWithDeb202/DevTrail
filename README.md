@@ -2,6 +2,8 @@
 
 **Track Every Commit. Share Every Milestone.**
 
+**Live Demo:** [Paste your live site URL here](https://your-live-url.com)
+
 DevTrail is a full-stack developer platform where developers can organize projects, track milestones, maintain daily development logs, and showcase their complete building journey to the world.
 
 ---
