@@ -1,4 +1,5 @@
 const DailyLog = require("../models/DailyLog");
+const { recalculateProjectProgress } = require("../utils/progress");
 
 
 // Create Log
@@ -34,6 +35,9 @@ exports.createLog = async (req, res) => {
             user: req.user._id,
 
         });
+
+        // Auto-update project progress based on completed logs
+        await recalculateProjectProgress(project);
 
 
         res.status(201).json({
@@ -139,6 +143,9 @@ exports.updateLog = async (req, res) => {
             }
         );
 
+        // Recalculate progress since log status may have changed
+        await recalculateProjectProgress(log.project);
+
         res.json({
             message: "Log updated successfully",
             log: updatedLog,
@@ -167,7 +174,12 @@ exports.deleteLog = async (req, res) => {
             });
         }
 
+        const projectId = log.project;
+
         await log.deleteOne();
+
+        // Recalculate progress after removing a log
+        await recalculateProjectProgress(projectId);
 
         res.json({
             message: "Daily log deleted successfully",

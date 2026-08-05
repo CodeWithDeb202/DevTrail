@@ -1,38 +1,41 @@
+// Controller: Dashboard statistics
+// Provides aggregated statistics for the authenticated user
 const Project = require("../models/Project");
 const DailyLog = require("../models/DailyLog");
 
 exports.getDashboardStats = async (req, res) => {
     try {
+        // Authenticated user ID is attached by auth middleware
         const userId = req.user.id;
 
+        // Count total projects owned by the user
         const totalProjects = await Project.countDocuments({
-            owner: userId
+            owner: userId,
         });
 
+        // Count total daily logs for the user
         const totalLogs = await DailyLog.countDocuments({
-            user: userId
+            user: userId,
         });
 
+        // Count logs that have status "Completed"
         const completedLogs = await DailyLog.countDocuments({
             user: userId,
-            status: "Completed"
+            status: "Completed",
         });
 
-        const logs = await DailyLog.find({
-            user: userId
-        }).sort({ createdAt: -1 });
+        // Fetch recent logs to calculate streak (sorted by newest first)
+        const logs = await DailyLog.find({ user: userId }).sort({ createdAt: -1 });
 
         let streak = 0;
 
         if (logs.length > 0) {
+            // Build a set of unique dates (YYYY-MM-DD) when user created logs
             const uniqueDates = [
-                ...new Set(
-                    logs.map((log) =>
-                        log.createdAt.toISOString().split("T")[0]
-                    )
-                ),
+                ...new Set(logs.map((log) => log.createdAt.toISOString().split("T")[0])),
             ];
 
+            // Start from today and count consecutive days present in uniqueDates
             let currentDate = new Date();
 
             for (const date of uniqueDates) {
@@ -47,21 +50,19 @@ exports.getDashboardStats = async (req, res) => {
             }
         }
 
-        const progress =
-            totalLogs === 0
-                ? 0
-                : Math.round((completedLogs / totalLogs) * 100);
+        // Overall progress = average of `progress` field across user's projects
+        const userProjects = await Project.find({ owner: userId });
 
-        res.json({
-            totalProjects,
-            totalLogs,
-            streak,
-            completedLogs,
-            progress,
-        });
+        let progress = 0;
+        if (userProjects.length > 0) {
+            const totalProgress = userProjects.reduce((sum, p) => sum + (p.progress || 0), 0);
+            progress = Math.round(totalProgress / userProjects.length);
+        }
+
+        // Respond with aggregated stats
+        res.json({ totalProjects, totalLogs, streak, completedLogs, progress });
     } catch (err) {
-        res.status(500).json({
-            message: err.message,
-        });
+        // Return generic server error with message
+        res.status(500).json({ message: err.message });
     }
 };
