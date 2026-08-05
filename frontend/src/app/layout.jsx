@@ -33,6 +33,11 @@ export const metadata = {
 
     type: "website"
 
+  },
+
+  icons: {
+    icon: "/gemini-svg.svg",
+    apple: "/gemini-svg.svg"
   }
 
 };
