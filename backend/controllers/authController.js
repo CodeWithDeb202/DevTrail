@@ -1,6 +1,68 @@
 const User = require("../models/User");
+const Project = require("../models/Project");
+const DailyLog = require("../models/DailyLog");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+
+// Delete Account
+exports.deleteAccount = async (req, res) => {
+    try {
+        const { password } = req.body;
+
+        const user = await User.findById(req.user?.id || req.user?._id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({
+                message: "Incorrect password",
+            });
+        }
+
+        // Delete all projects of this user
+        const projects = await Project.find({ owner: user._id });
+
+        const projectIds = projects.map((p) => p._id);
+
+        // Delete all logs of this user's projects
+        await DailyLog.deleteMany({
+            project: { $in: projectIds },
+        });
+
+        // Delete all projects
+        await Project.deleteMany({
+            owner: user._id,
+        });
+
+        // Remove user from others' followers/following lists
+        await User.updateMany(
+            { followers: user._id },
+            { $pull: { followers: user._id } }
+        );
+        await User.updateMany(
+            { following: user._id },
+            { $pull: { following: user._id } }
+        );
+
+        // Delete the user
+        await User.findByIdAndDelete(user._id);
+
+        res.json({
+            message: "Account deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
 
 
 // Change Password

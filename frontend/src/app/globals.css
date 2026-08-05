@@ -1,5 +1,102 @@
 @import "tailwindcss";
 
+/* ===== Light Theme System ===== */
+/* The app uses hardcoded dark colors. When <html> has class "light",
+   we override those colors to create a proper light theme. */
+
+html.light {
+  color-scheme: light;
+}
+
+/* Base background */
+html.light body {
+  background-color: #f8fafc;
+}
+
+/* Override dark backgrounds [bg-#030712] */
+html.light .bg-\[\#030712\] {
+  background-color: #f8fafc !important;
+}
+
+/* Override card backgrounds [bg-#111827] */
+html.light .bg-\[\#111827\] {
+  background-color: #ffffff !important;
+}
+
+/* Override borders white/10 */
+html.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Override white text -> dark text */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+/* Override gray text -> darker gray for contrast on light */
+html.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-300 {
+  color: #334155 !important;
+}
+
+/* Override hover:bg-white/5 */
+html.light .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Override bg-white/5 and bg-white/10 */
+html.light .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Override gray-700 progress track */
+html.light .bg-gray-700 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Override gray-800 inputs */
+html.light .bg-gray-800 {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Auth input light theme */
+html.light .auth-input {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+}
+
+html.light .bg-\[\#111827\] {
+  background-color: #ffffff !important;
+}
+
+/* Sidebar/navbar card backgrounds */
+html.light aside.bg-\[\#111827\] {
+  background-color: #ffffff !important;
+}
+
+/* ===== End Light Theme ===== */
+
 .auth-input {
 
   width: 100%;

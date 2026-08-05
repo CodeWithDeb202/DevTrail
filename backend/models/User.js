@@ -93,7 +93,38 @@ const userSchema = new mongoose.Schema(
 
 
 
-    publicProfile: {
+publicProfile: {
+      type: Boolean,
+      default: true
+    },
+
+    publicProjects: {
+      type: Boolean,
+      default: true
+    },
+
+    publicTimeline: {
+      type: Boolean,
+      default: true
+    },
+
+    theme: {
+      type: String,
+      enum: ["dark", "light", "system"],
+      default: "dark"
+    },
+
+    emailNotifications: {
+      type: Boolean,
+      default: true
+    },
+
+    weeklyReport: {
+      type: Boolean,
+      default: true
+    },
+
+    buildReminder: {
       type: Boolean,
       default: true
     }

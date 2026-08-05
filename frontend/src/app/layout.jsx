@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 
 
@@ -45,15 +46,19 @@ export default function RootLayout({ children }) {
 
       <body suppressHydrationWarning={true}>
 
-        <Toaster
+<Toaster
           position="top-right"
         />
 
-        <AuthProvider>
+        <ThemeProvider>
 
-          {children}
+          <AuthProvider>
 
-        </AuthProvider>
+            {children}
+
+          </AuthProvider>
+
+        </ThemeProvider>
 
 
       </body>
