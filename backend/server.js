@@ -20,8 +20,12 @@ const app = express();
 // Middleware
 app.use(
     cors({
-        // Allow origin based on environment (development uses localhost list)
-        origin: process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL : ["http://localhost:3000", "http://localhost:3001"],
+        origin: [
+            process.env.FRONTEND_URL,
+            "https://dev-trail-alpha.vercel.app",
+            "http://localhost:3000",
+            "http://localhost:3001"
+        ],
         credentials: true,
     })
 );
